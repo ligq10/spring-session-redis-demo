@@ -1,0 +1,21 @@
+version = '1.0'
+def gitTag  = 'git describe --tags'.execute([], project.rootDir).text.trim()
+jar {
+    baseName = 'redis-rest'+"-$profile"+'-tag'
+    version = gitTag
+}
+
+dependencies {
+	
+    compile(
+            "org.springframework.boot:spring-boot-starter",
+            "org.springframework.session:spring-session-data-redis",
+            "org.springframework.boot:spring-boot-starter-data-redis"
+    )
+
+    testCompile(
+            "org.springframework.boot:spring-boot-starter-test",
+    )
+    
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
